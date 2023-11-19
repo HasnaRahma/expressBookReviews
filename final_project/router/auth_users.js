@@ -72,6 +72,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
                     return res.send(`Review of the user ${sessionUser} has been updated !`)
                 }
             }
+            // Case of a new reviw from a different user
             book.reviews.push[{"review":{review}}]        
             return res.send(`New review added to the book with the ISBN ${req.body.isbn} !`)
         }            
@@ -80,6 +81,25 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
         res.send("Unable to find the book!");
     }
 });
+
+// DELETE request: Delete a book review 
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    const isbn = req.params.isbn;
+    const book = books[isbn];
+    const sessionUser = req.session.authorization.username;
+    if (book){
+        for (const [key, review] of Object.entries(book.reviews)) {
+            if (review.user === sessionUser) {
+                console.log("key is : ", key, "the review is : ", book.reviews[key])
+                delete book.reviews[key]
+                return res.send(`Review of the user ${sessionUser} of the book with the ISBN ${isbn} has been deleted successfully  !`)
+            }
+        }
+    }else{
+        res.send("Unable to find the book!");
+    }
+    res.send(`Friend with the email  ${email} deleted.`);
+  });
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;

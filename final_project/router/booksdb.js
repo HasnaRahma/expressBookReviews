@@ -3,7 +3,11 @@ let books = {
         "user": "rahma",
         "rating": 4,
         "comment": "Great book!"
-      },} },
+      },"review2": {
+        "user": "lydia",
+        "rating": 3,
+        "comment": "Nice book!"
+      }} },
       2: {"author": "Hans Christian Andersen","title": "Fairy tales", "reviews": {"review1": {
         "user": "lydia",
         "rating": 3,
